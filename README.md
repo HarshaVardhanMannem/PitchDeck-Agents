@@ -66,7 +66,13 @@ Rather than asking a single AI model to "write a pitch deck," this system deploy
     'titleColor': '#f1f5f9',
     'edgeLabelBackground': '#334155',
     'fontFamily': 'ui-sans-serif, system-ui, sans-serif',
-    'fontSize': '18px'
+    'fontSize': '20px'
+  },
+  'flowchart': {
+    'nodeSpacing': 50,
+    'rankSpacing': 60,
+    'curve': 'basis',
+    'useMaxWidth': false
   }
 }}%%
 flowchart TD
@@ -146,14 +152,14 @@ flowchart TD
     LA1 & LA2 & LA3             -. "LLM" .-> Gemini
     A9  & A10                   -. "LLM" .-> Gemini
 
-    classDef user         fill:#7c3aed,stroke:#4c1d95,color:#fff,font-weight:bold,stroke-width:2px
-    classDef frontend     fill:#3b82f6,stroke:#1e40af,color:#fff,stroke-width:2px
-    classDef backend      fill:#0891b2,stroke:#0c4a6e,color:#fff,stroke-width:2px
-    classDef agent_llm    fill:#059669,stroke:#064e3b,color:#fff,stroke-width:2px
-    classDef agent_search fill:#f59e0b,stroke:#78350f,color:#fff,stroke-width:2px
-    classDef agent_loop   fill:#8b5cf6,stroke:#3b0764,color:#fff,stroke-width:2px
-    classDef google_llm   fill:#dc2626,stroke:#7f1d1d,color:#fff,stroke-width:2px
-    classDef google_search fill:#ea580c,stroke:#7c2d12,color:#fff,stroke-width:2px
+    classDef user         fill:#7c3aed,stroke:#4c1d95,color:#fff,font-weight:bold,stroke-width:2px,font-size:20px
+    classDef frontend     fill:#3b82f6,stroke:#1e40af,color:#fff,stroke-width:2px,font-size:20px
+    classDef backend      fill:#0891b2,stroke:#0c4a6e,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_llm    fill:#059669,stroke:#064e3b,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_search fill:#f59e0b,stroke:#78350f,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_loop   fill:#8b5cf6,stroke:#3b0764,color:#fff,stroke-width:2px,font-size:20px
+    classDef google_llm   fill:#dc2626,stroke:#7f1d1d,color:#fff,stroke-width:2px,font-size:20px
+    classDef google_search fill:#ea580c,stroke:#7c2d12,color:#fff,stroke-width:2px,font-size:20px
 ```
 
 ---
