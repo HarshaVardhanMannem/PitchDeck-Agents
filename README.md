@@ -20,12 +20,28 @@ Doing this manually takes days or weeks of effort, domain expertise, and iterati
 
 ## 💡 Motivation
 
-**PitchDeck Agents** was built to solve this problem end-to-end using AI. The core insight is that building a pitch deck is a *sequential, decomposable workflow* — each step depends on the previous one, and each step benefits from a specialized perspective.
+### The Story Behind the Product
+
+This project was born out of a real observation while working at a startup. Product managers were spending a significant amount of time preparing compelling pitch decks, conducting market research, and validating ideas — **before they could even begin building**.
+
+A lot of their effort wasn't going into product thinking. It was going into gathering data, structuring narratives, validating assumptions, and formatting insights into something investor-ready or stakeholder-ready. It was repetitive, manual, and time-consuming.
+
+That raised an important question:
+
+> *Why are smart PMs spending hours assembling information that could be systematized, automated, and intelligently generated?*
+
+**PitchDeck Agents** was built to reduce the friction between idea and validation — helping teams move from concept to confident decision-making much faster.
+
+### Why a Multi-Agent Approach?
+
+The core insight is that building a pitch deck is a *sequential, decomposable workflow* — each step depends on the previous one, and each step benefits from a specialized perspective.
 
 Rather than asking a single AI model to "write a pitch deck," this system deploys **11 specialized AI agents** that each own a narrow responsibility and pass structured outputs to downstream agents. The result is a richer, more consistent, and more investor-ready strategy than any single prompt could produce.
 
-This application is built for:
+### Who It's Built For
+
 - **Founders** who need rapid idea validation and structured pitch materials
+- **Product Managers** who want to move from concept to stakeholder-ready documentation faster
 - **Accelerators & Incubators** looking to help cohorts prepare for demo days
 - **Product teams** exploring new market opportunities
 - **Investors** who want quick AI-generated due-diligence overviews
