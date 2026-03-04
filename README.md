@@ -51,106 +51,116 @@ Rather than asking a single AI model to "write a pitch deck," this system deploy
 ## 🏗️ System Architecture
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#fff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#10b981', 'tertiaryColor': '#f8fafc'}}}%%
+%%{init: {
+  'theme': 'dark',
+  'themeVariables': {
+    'primaryColor': '#6366f1',
+    'primaryTextColor': '#ffffff',
+    'primaryBorderColor': '#4338ca',
+    'lineColor': '#94a3b8',
+    'secondaryColor': '#0ea5e9',
+    'tertiaryColor': '#1e293b',
+    'background': '#0f172a',
+    'clusterBkg': '#1e293b',
+    'clusterBorder': '#475569',
+    'titleColor': '#f1f5f9',
+    'edgeLabelBackground': '#334155',
+    'fontFamily': 'ui-sans-serif, system-ui, sans-serif',
+    'fontSize': '20px'
+  },
+  'flowchart': {
+    'nodeSpacing': 50,
+    'rankSpacing': 60,
+    'curve': 'basis',
+    'useMaxWidth': false
+  }
+}}%%
 flowchart TD
-    User(["👤 User\n(Browser)"]):::user
+    User(["👤 USER\nSubmit Business Idea"]):::user
 
-    subgraph Frontend ["🖥️ Frontend — React.js (Port 3000)"]
+    subgraph Frontend ["🖥️  FRONTEND  —  React.js  (Port 3000)"]
         direction TB
-        UI["Chat Interface\n(App.js)"]:::frontend
-        MD["ReactMarkdown\nRenderer"]:::frontend
-        Progress["Agent Progress\nTracker"]:::frontend
+        UI["💬 Chat Interface\n(App.js)"]:::frontend
+        Progress["📊 Live Progress Tracker\n(Agent Status Updates)"]:::frontend
+        MD["📝 Results Renderer\n(ReactMarkdown)"]:::frontend
     end
 
-    subgraph Backend ["⚙️ Backend — FastAPI (Port 8000)"]
-        direction TB
-        API["POST /api/analyze\n(main.py)"]:::backend
-        Parser["Response Parser\n& Markdown Formatter"]:::backend
+    subgraph Backend ["⚙️  BACKEND  —  FastAPI  (Port 8000)"]
+        direction LR
+        API["🔌 REST Endpoint\n(POST /api/analyze)"]:::backend
+        Parser["🔧 Response Formatter\n(Markdown + JSON)"]:::backend
+        API --> Parser
     end
 
-    subgraph Pipeline ["🤖 AI Agent Pipeline — Google ADK + Gemini 2.0 Flash"]
+    subgraph Pipeline ["🤖  AI AGENT PIPELINE  —  Google ADK  +  Gemini 2.0 Flash"]
         direction TB
 
-        subgraph Sequential1 ["Sequential Stage 1 — Core Analysis"]
+        subgraph Stage1 ["📌  STAGE 1 — Core Analysis  (runs once, in sequence)"]
             direction LR
-            A1["💡 Clarify Idea\nAgent"]:::agent1
-            A2["🎯 Problem Statement\nAgent 🔍"]:::agent2
-            A3["👥 Target Customer\nAgent 🔍"]:::agent2
-            A4["🛠️ MVP Planner\nAgent"]:::agent1
-            A5["🏢 Competitor Analysis\nAgent 🔍"]:::agent2
-            A6["💰 Monetization\nAgent"]:::agent1
-            A7["📈 Go-to-Market\nAgent"]:::agent1
-            A8["📊 Pitch Deck\nAgent"]:::agent1
+            A1["💡 Clarify Idea\nRefines the concept"]:::agent_llm
+            A2["🎯 Problem Statement\nDefines market pain point 🔍"]:::agent_search
+            A3["👥 Target Customer\nBuilds customer profile 🔍"]:::agent_search
+            A4["🛠️ MVP Planner\nDefines shippable product"]:::agent_llm
+            A5["🏢 Competitor Analysis\nFinds top 3 rivals 🔍"]:::agent_search
+            A6["💰 Monetization\nProposes revenue models"]:::agent_llm
+            A7["📈 Go-to-Market\nPlans first 100 users"]:::agent_llm
+            A8["📊 Pitch Deck\nBuilds investor outline"]:::agent_llm
             A1 --> A2 --> A3 --> A4 --> A5 --> A6 --> A7 --> A8
         end
 
-        subgraph LoopStage ["🔄 Validation Loop — LoopAgent (max 3 iterations)"]
+        subgraph Stage2 ["🔄  STAGE 2 — Validation Loop  (repeats up to 3×)"]
             direction LR
-            LA1["✅ Validation\nAgent"]:::loop
-            LA2["📡 Market Research\nAgent 🔍"]:::loop
-            LA3["🔧 Strategy Refinement\nAgent"]:::loop
+            LA1["✅ Validation Agent\nSpots gaps & weaknesses"]:::agent_loop
+            LA2["📡 Market Research\nGathers live market data 🔍"]:::agent_loop
+            LA3["🔧 Strategy Refinement\nImproves the plan"]:::agent_loop
             LA1 --> LA2 --> LA3 --> LA1
         end
 
-        subgraph Sequential2 ["Sequential Stage 2 — Synthesis"]
+        subgraph Stage3 ["🏁  STAGE 3 — Final Synthesis  (runs once, in sequence)"]
             direction LR
-            A9["🎯 Final Synthesis\nAgent"]:::agent1
-            A10["💾 Memory\nAgent"]:::agent1
+            A9["🎯 Final Synthesis\nCreates investor-ready doc"]:::agent_llm
+            A10["💾 Memory Agent\nSaves session insights"]:::agent_llm
             A9 --> A10
         end
 
-        Sequential1 --> LoopStage --> Sequential2
+        Stage1 --> Stage2 --> Stage3
     end
 
-    subgraph Google ["☁️ Google Cloud APIs"]
-        Gemini["Gemini 2.0 Flash\n(LLM)"]:::google
-        Search["Google Search API\n(Real-time Data)"]:::google
+    subgraph GoogleCloud ["☁️  GOOGLE CLOUD SERVICES"]
+        direction LR
+        Gemini["🧠 Gemini 2.0 Flash\nLarge Language Model\n(Powers all agents)"]:::google_llm
+        Search["🔍 Google Search API\nReal-time Web Data\n(Market research & trends)"]:::google_search
     end
 
-    User -- "Business Idea (text)" --> UI
-    UI -- "HTTP POST /api/analyze" --> API
-    API --> Parser
-    Parser --> A1
-    A8 --> LA1
-    A10 --> Backend
-    Backend -- "Structured JSON Results" --> UI
-    UI --> MD
-    MD -- "Rendered Strategy" --> User
+    User          -- "① Enter idea"            --> UI
+    UI            -- "② HTTP POST request"     --> API
+    Parser        -- "③ Launch pipeline"       --> A1
+    A8            -->                              LA1
+    A10           -- "④ All results ready"     --> Backend
+    Backend       -- "⑤ Structured JSON"       --> UI
+    UI            -->                              Progress
+    UI            -->                              MD
+    MD            -- "⑥ Rendered strategy"     --> User
 
-    A2 -. "google_search" .-> Search
-    A3 -. "google_search" .-> Search
-    A5 -. "google_search" .-> Search
-    LA2 -. "google_search" .-> Search
+    A2  -. "live search" .-> Search
+    A3  -. "live search" .-> Search
+    A5  -. "live search" .-> Search
+    LA2 -. "live search" .-> Search
 
-    A1 -. "LLM call" .-> Gemini
-    A2 -. "LLM call" .-> Gemini
-    A3 -. "LLM call" .-> Gemini
-    A4 -. "LLM call" .-> Gemini
-    A5 -. "LLM call" .-> Gemini
-    A6 -. "LLM call" .-> Gemini
-    A7 -. "LLM call" .-> Gemini
-    A8 -. "LLM call" .-> Gemini
-    LA1 -. "LLM call" .-> Gemini
-    LA2 -. "LLM call" .-> Gemini
-    LA3 -. "LLM call" .-> Gemini
-    A9 -. "LLM call" .-> Gemini
-    A10 -. "LLM call" .-> Gemini
+    A1  & A4  & A6  & A7  & A8  -. "LLM" .-> Gemini
+    A2  & A3  & A5              -. "LLM" .-> Gemini
+    LA1 & LA2 & LA3             -. "LLM" .-> Gemini
+    A9  & A10                   -. "LLM" .-> Gemini
 
-    classDef user fill:#7c3aed,stroke:#5b21b6,color:#fff
-    classDef frontend fill:#4f46e5,stroke:#3730a3,color:#fff
-    classDef backend fill:#0891b2,stroke:#0e7490,color:#fff
-    classDef agent1 fill:#059669,stroke:#047857,color:#fff
-    classDef agent2 fill:#d97706,stroke:#b45309,color:#fff
-    classDef loop fill:#7c3aed,stroke:#6d28d9,color:#fff
-    classDef google fill:#dc2626,stroke:#b91c1c,color:#fff
+    classDef user         fill:#7c3aed,stroke:#4c1d95,color:#fff,font-weight:bold,stroke-width:2px,font-size:20px
+    classDef frontend     fill:#3b82f6,stroke:#1e40af,color:#fff,stroke-width:2px,font-size:20px
+    classDef backend      fill:#0891b2,stroke:#0c4a6e,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_llm    fill:#059669,stroke:#064e3b,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_search fill:#f59e0b,stroke:#78350f,color:#fff,stroke-width:2px,font-size:20px
+    classDef agent_loop   fill:#8b5cf6,stroke:#3b0764,color:#fff,stroke-width:2px,font-size:20px
+    classDef google_llm   fill:#dc2626,stroke:#7f1d1d,color:#fff,stroke-width:2px,font-size:20px
+    classDef google_search fill:#ea580c,stroke:#7c2d12,color:#fff,stroke-width:2px,font-size:20px
 ```
-
-> **Legend:**
-> - 🟢 **Green agents** — Pure LLM reasoning (no external tools)
-> - 🟡 **Amber agents** — LLM + Google Search (real-time market data)
-> - 🟣 **Purple agents** — Iterative validation loop (run up to 3 times)
-> - 🔵 **Blue** — FastAPI backend layer
-> - 🔴 **Red** — Google Cloud external services
 
 ---
 
