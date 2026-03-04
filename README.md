@@ -66,7 +66,7 @@ Rather than asking a single AI model to "write a pitch deck," this system deploy
     'titleColor': '#f1f5f9',
     'edgeLabelBackground': '#334155',
     'fontFamily': 'ui-sans-serif, system-ui, sans-serif',
-    'fontSize': '14px'
+    'fontSize': '18px'
   }
 }}%%
 flowchart TD
@@ -155,21 +155,6 @@ flowchart TD
     classDef google_llm   fill:#dc2626,stroke:#7f1d1d,color:#fff,stroke-width:2px
     classDef google_search fill:#ea580c,stroke:#7c2d12,color:#fff,stroke-width:2px
 ```
-
-> ### 🗺️ Diagram Legend
->
-> | Color | Component | Description |
-> |-------|-----------|-------------|
-> | 🟣 **Purple** | User | Entry point — submits the business idea |
-> | 🔵 **Blue** | Frontend | React.js chat interface & result display |
-> | 🩵 **Cyan** | Backend | FastAPI REST server & response formatter |
-> | 🟢 **Green** | Core / Synthesis Agents | Pure LLM reasoning — no external tools |
-> | 🟡 **Amber** | Search-Enabled Agents | LLM + Google Search for real-time market data |
-> | 🟪 **Violet** | Validation Loop Agents | Iterative refinement — runs up to 3 times |
-> | 🔴 **Red** | Google LLM | Gemini 2.0 Flash — large language model |
-> | 🟠 **Orange** | Google Search | Live web search for market research & trends |
->
-> **Numbered arrows (①–⑥)** show the end-to-end request/response flow from user to rendered results.
 
 ---
 
