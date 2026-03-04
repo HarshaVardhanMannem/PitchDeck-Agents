@@ -52,19 +52,19 @@ Rather than asking a single AI model to "write a pitch deck," this system deploy
 
 ```mermaid
 %%{init: {
-  'theme': 'base',
+  'theme': 'dark',
   'themeVariables': {
     'primaryColor': '#6366f1',
     'primaryTextColor': '#ffffff',
     'primaryBorderColor': '#4338ca',
-    'lineColor': '#64748b',
+    'lineColor': '#94a3b8',
     'secondaryColor': '#0ea5e9',
-    'tertiaryColor': '#f0f9ff',
-    'background': '#ffffff',
-    'clusterBkg': '#f8fafc',
-    'clusterBorder': '#cbd5e1',
-    'titleColor': '#1e293b',
-    'edgeLabelBackground': '#f1f5f9',
+    'tertiaryColor': '#1e293b',
+    'background': '#0f172a',
+    'clusterBkg': '#1e293b',
+    'clusterBorder': '#475569',
+    'titleColor': '#f1f5f9',
+    'edgeLabelBackground': '#334155',
     'fontFamily': 'ui-sans-serif, system-ui, sans-serif',
     'fontSize': '14px'
   }
